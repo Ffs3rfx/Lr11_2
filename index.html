@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форма з підказкою</title>
+    <style>
+        /* Основні стилі для сторінки */
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        form {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        label {
+            font-size: 14px;
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        input:focus, textarea:focus {
+            border-color: #4CAF50;
+            outline: none;
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 10px 15px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .form-container {
+            text-align: center;
+        }
+    </style>
+<script>
+    // Функція перевірки коректності введення
+    function validateForm(event) {
+        event.preventDefault();
+
+        const name = document.getElementById("name").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const phone = document.getElementById("phone").value.trim();
+
+        const namePattern = /^[A-Za-zА-Яа-яІіЇїЄє\s]+$/; // Ім'я: тільки літери
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Електронна пошта
+        const phonePattern = /^\+?\d{10,15}$/; // Номер телефону
+
+        if (!namePattern.test(name)) {
+            alert("Ім'я введено некоректно. Дозволено лише літери.");
+            return false;
+        }
+        if (!emailPattern.test(email)) {
+            alert("Електронну пошту введено некоректно.");
+            return false;
+        }
+        if (!phonePattern.test(phone)) {
+            alert("Номер телефону введено некоректно. Приклад: +1234567890");
+            return false;
+        }
+
+        alert("Форма заповнена коректно!");
+        return true;
+    }
+
+    // Прив'язуємо перевірку до кнопки "submit"
+    window.onload = function () {
+        document.querySelector("form").addEventListener("submit", validateForm);
+    };
+</script>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Лабораторна робота №11</h1>
+        <form>
+            <label for="name">Ім'я:</label>
+            <input type="text" id="name" name="name">
+
+            <label for="email">Електронна пошта:</label>
+            <input type="email" id="email" name="email">
+
+            <label for="phone">Номер телефону:</label>
+            <input type="text" id="phone" name="phone" required>
+
+            <label for="message">Повідомлення:</label>
+            <textarea id="message" name="message"></textarea>
+
+            <input type="submit" value="Надіслати">
+        </form>
+    </div>
+</body>
+</html>
